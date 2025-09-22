@@ -27,7 +27,7 @@
         let incorrectCount = 0;
         let gameStartTime = 0;
         let gameTimer = null;
-        let gameDuration = 300; // 5 minutes (300 seconds)
+        let gameDuration = 180; // 5 minutes (300 seconds)
         let timeRemaining = gameDuration;
         let symbolStartTime = 0;
         let gameData = [];
