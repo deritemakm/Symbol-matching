@@ -207,13 +207,13 @@
             symbolDisplay.className = 'symbol-display';
             
             finalStatsDiv.innerHTML = `
-                <div>Total Symbols: ${total}</div>
-                <div>Correct: ${correctCount}</div>
-                <div>Incorrect: ${incorrectCount}</div>
-                <div>Accuracy: ${accuracy}%</div>
-                <div>Speed: ${wpm} symbols/minute</div>
-                <div>Avg Reaction Time: ${avgReaction}ms</div>
-                <div>Sessions Played: ${allGameSessions.length}</div>
+                <div><span>Total Symbols:</span><span>${total}</span></div>
+                <div><span>Correct:</span><span>${correctCount}</span></div>
+                <div><span>Incorrect:</span><span>${incorrectCount}</span></div>
+                <div><span>Accuracy:</span><span>${accuracy}%</span></div>
+                <div><span>Speed:</span><span>${wpm} symbols/minute</span></div>
+                <div><span>Avg Reaction Time:</span><span>${avgReaction}ms</span></div>
+                <div><span>Sessions Played:</span><span>${allGameSessions.length}</span></div>
             `;
             
             // Display detailed data summary
@@ -346,7 +346,7 @@
             summaryDiv.className = 'data-summary';
             
             let summaryHTML = '<h3>📊 Current Session Results</h3>';
-            summaryHTML += '<div style="font-size: 0.9em; margin-bottom: 10px;">Symbol | Key Pressed | Expected | Result | Reaction Time</div>';
+            summaryHTML += '<div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px; align-items: center; padding: 12px 15px; margin: 8px 0; background: linear-gradient(45deg, #c76aab, #8f0b61); color: white; font-weight: bold; border-radius: 10px; border: none; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(199, 106, 171, 0.3);"><span>Symbol</span><span>Pressed</span><span>Expected</span><span>Result</span><span>Time</span></div>';
             
             gameData.forEach((entry, index) => {
                 const entryClass = entry.correct ? 'correct-entry' : 'incorrect-entry';
@@ -364,15 +364,15 @@
             
             // Add session history summary if there are previous sessions
             if (allGameSessions.length > 1) {
-                summaryHTML += '<h3 style="margin-top: 20px;">📈 Session History</h3>';
-                summaryHTML += '<div style="font-size: 0.9em; margin-bottom: 10px;">Session | Date | Accuracy | Total Symbols | Avg Reaction</div>';
+                summaryHTML += '<h3 style="margin-top: 20px;">📈 Recent Session History</h3>';
+                summaryHTML += '<div style="display: grid; grid-template-columns: 1fr 2fr 1fr 1fr 1fr; gap: 10px; align-items: center; padding: 12px 15px; margin: 8px 0; background: linear-gradient(45deg, #c76aab, #8f0b61); color: white; font-weight: bold; border-radius: 10px; border: none; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(199, 106, 171, 0.3);"><span>Session</span><span>Date & Time</span><span>Accuracy</span><span>Total</span><span>Avg Time</span></div>';
                 
                 allGameSessions.slice(-5).forEach((session, index) => {
                     const sessionNumber = allGameSessions.length - 4 + index;
                     const date = new Date(session.date).toLocaleDateString();
-                    const time = new Date(session.date).toLocaleTimeString();
+                    const time = new Date(session.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     summaryHTML += `
-                        <div class="data-entry" style="font-size: 0.85em;">
+                        <div class="data-entry" style="grid-template-columns: 1fr 2fr 1fr 1fr 1fr; font-size: 0.95em;">
                             <span>#${sessionNumber}</span>
                             <span>${date} ${time}</span>
                             <span>${session.accuracy}%</span>
@@ -383,7 +383,7 @@
                 });
                 
                 if (allGameSessions.length > 5) {
-                    summaryHTML += `<div style="text-align: center; margin-top: 10px; font-style: italic;">... and ${allGameSessions.length - 5} more sessions</div>`;
+                    summaryHTML += `<div style="text-align: center; margin-top: 15px; font-style: italic; color: #666; background: rgba(199, 106, 171, 0.1); padding: 10px; border-radius: 10px;">... and ${allGameSessions.length - 5} more sessions available in downloads</div>`;
                 }
             }
             
