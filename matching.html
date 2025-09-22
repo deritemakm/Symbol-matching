@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol Matching Game</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Symbol Match Challenge</h1>
+        
+        <div class="stats">
+            <div class="stat">
+                <h3>Time</h3>
+                <div class="value" id="timer">0.0s</div>
+            </div>
+            <div class="stat">
+                <h3>Correct</h3>
+                <div class="value" id="correct">0</div>
+            </div>
+            <div class="stat">
+                <h3>Incorrect</h3>
+                <div class="value" id="incorrect">0</div>
+            </div>
+            <div class="stat">
+                <h3>Accuracy</h3>
+                <div class="value" id="accuracy">100%</div>
+            </div>
+            <div class="stat">
+                <h3>Avg Reaction</h3>
+                <div class="value" id="avgReaction">0ms</div>
+            </div>
+        </div>
+
+        <div class="current-reaction">
+            <strong>Last Reaction Time: <span id="lastReaction">0ms</span></strong>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <div class="symbol-legend">
+            <div class="legend-item">
+                <div class="legend-symbol">⭐</div>
+                <div class="legend-key">1</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">💎</div>
+                <div class="legend-key">2</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">❤️</div>
+                <div class="legend-key">3</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">▲</div>
+                <div class="legend-key">4</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">⭕</div>
+                <div class="legend-key">5</div>
+            </div>
+        </div>
+
+        <div class="symbol-display" id="symbolDisplay">
+            Press START to begin!
+        </div>
+
+        <div class="last-key">
+            Last key pressed: <span class="key-pressed" id="lastKey">None</span>
+        </div>
+
+        <button class="start-btn" onclick="showInstructions()" id="startBtn">START GAME</button>
+
+        <!-- Instructions Popup -->
+        <div class="instruction-popup" id="instructionPopup" style="display: none;">
+            <div class="popup-content">
+                <h2>🎯 How to Play</h2>
+                <div class="popup-instructions">
+                    <p><strong>Look at the symbol displayed above and press the corresponding number key (1-5) based on the legend.</strong></p>
+                    <p>⏰ You have <strong>5 minutes</strong> to match as many symbols as possible!</p>
+                    <div class="legend-reminder">
+                        <div class="legend-row">
+                            <span class="popup-symbol">⭐</span> = <kbd>1</kbd>
+                            <span class="popup-symbol">💎</span> = <kbd>2</kbd>
+                            <span class="popup-symbol">❤️</span> = <kbd>3</kbd>
+                        </div>
+                        <div class="legend-row">
+                            <span class="popup-symbol">▲</span> = <kbd>4</kbd>
+                            <span class="popup-symbol">⭕</span> = <kbd>5</kbd>
+                        </div>
+                    </div>
+                    <p class="tip">💡 <em>Tip: Focus on speed and accuracy for the best score!</em></p>
+                </div>
+                <button class="start-game-btn" onclick="startGameFromPopup()">🚀 START GAME</button>
+                <button class="close-popup-btn" onclick="closeInstructions()">❌ Cancel</button>
+            </div>
+        </div>
+
+        <div class="game-over" id="gameOver" style="display: none;">
+            <h2>🎉 Game Over!</h2>
+            <div class="accuracy" id="finalStats"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
