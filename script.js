@@ -119,7 +119,7 @@
 
         function updateTimer() {
             timeRemaining--;
-            timerDisplay.textContent = (gameDuration - timeRemaining).toFixed(1) + 's';
+            timerDisplay.textContent = (gameDuration - timeRemaining) + 's'; // Show whole seconds
             
             const progress = ((gameDuration - timeRemaining) / gameDuration) * 100;
             progressBar.style.width = progress + '%';
@@ -170,7 +170,7 @@
             displayNewSymbol();
             updateStats();
             
-            gameTimer = setInterval(updateTimer, 100);
+            gameTimer = setInterval(updateTimer, 1000); // Update every 1 second (1000ms)
             
             // Focus on the window to capture key events
             window.focus();
