@@ -119,9 +119,9 @@
 
         function updateTimer() {
             timeRemaining--;
-            timerDisplay.textContent = (gameDuration - timeRemaining) + 's'; // Show whole seconds
+            timerDisplay.textContent = timeRemaining + 's'; // Show remaining time (countdown)
             
-            const progress = ((gameDuration - timeRemaining) / gameDuration) * 100;
+            const progress = (timeRemaining / gameDuration) * 100; // Reverse progress bar
             progressBar.style.width = progress + '%';
             
             if (timeRemaining <= 0) {
@@ -569,3 +569,9 @@
 
         // Initial setup
         updateStats();
+        
+        // Set initial timer display to show countdown
+        timerDisplay.textContent = timeRemaining + 's';
+        
+        // Set initial progress bar to full (100%)
+        progressBar.style.width = '100%';
