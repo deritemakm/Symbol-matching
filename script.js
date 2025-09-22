@@ -129,15 +129,109 @@
             }
         }
 
+        // Audio for sound effects
+        let celebrationAudio = null;
+
+        // Initialize audio
+        function initializeAudio() {
+            try {
+                celebrationAudio = new Audio();
+                
+                // TO ADD YOUR OWN MP3 FILE:
+                // 1. Put your MP3 file in the same folder as this HTML file
+                // 2. Replace the filename below with your MP3 filename
+                // Example: celebrationAudio.src = 'celebration.mp3';
+                //         celebrationAudio.src = 'sounds/party.mp3';
+                //         celebrationAudio.src = 'hooray.mp3';
+                
+                // For now, using a simple beep sound (replace with your MP3)
+                celebrationAudio.src = 'sound-effect.m4a'; // <- CHANGE THIS TO YOUR MP3 FILE
+                
+                // If the file doesn't exist, this will create a fallback beep
+                celebrationAudio.onerror = function() {
+                    console.log('MP3 file not found, using fallback sound');
+                    // Fallback to a simple beep sound
+                    celebrationAudio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBzaUy+LFeSsFLYTO8tiJOAgsf8Pq2oY3ByV+y+LSgyEGfaTV8MR1KAMyjs8AAAAAAAEAAgADAAQABQAGAAcACAAJAAoACwAMAAAAAAACgAAAAQAAAAEAAAACAAAAAgAAAAQAAAAEAAAABAAAAAQAAAABgAAAAAQ=';
+                };
+                
+                celebrationAudio.volume = 0.5; // Adjust volume (0.0 to 1.0)
+                celebrationAudio.preload = 'auto';
+            } catch (error) {
+                console.log('Audio initialization failed:', error);
+                celebrationAudio = null;
+            }
+        }
+
+        // Call audio initialization when page loads
+        initializeAudio();
+
         function showGoodJobPopup() {
             const popup = document.createElement('div');
             popup.className = 'good-job-popup';
             popup.textContent = '🎉 Good Job! 🎉';
             document.body.appendChild(popup);
             
+            // Play celebration sound
+            playCelebrationSound();
+            
+            // Create confetti effect
+            createConfetti();
+            
+            // Debug log to check if function is called
+            console.log('Good job popup triggered with confetti and sound!');
+            
             setTimeout(() => {
-                document.body.removeChild(popup);
-            }, 1500);
+                if (document.body.contains(popup)) {
+                    document.body.removeChild(popup);
+                }
+                // Clean up confetti pieces
+                const confettiPieces = document.querySelectorAll('.confetti-piece');
+                confettiPieces.forEach(piece => {
+                    if (document.body.contains(piece)) {
+                        document.body.removeChild(piece);
+                    }
+                });
+            }, 3000);
+        }
+
+        function playCelebrationSound() {
+            try {
+                if (celebrationAudio) {
+                    celebrationAudio.currentTime = 0; // Reset to beginning
+                    const playPromise = celebrationAudio.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log('Audio play failed:', error);
+                            // Audio play failed, possibly due to browser autoplay policy
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log('Error playing celebration sound:', error);
+            }
+        }
+
+        function createConfetti() {
+            const confettiEmojis = ['🎉', '🎊', '✨', '🌟', '⭐', '🎈', '🎁', '💎', '🏆', '🔥'];
+            const gameContainer = document.querySelector('.game-container');
+            const containerRect = gameContainer.getBoundingClientRect();
+            
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                
+                // Random horizontal position within game container
+                const leftPosition = Math.random() * containerRect.width;
+                confetti.style.left = leftPosition + 'px';
+                confetti.style.top = '-50px';
+                
+                // Random animation delay for staggered effect
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                gameContainer.appendChild(confetti);
+            }
         }
 
         // Popup functions
@@ -163,6 +257,11 @@
             gameData = [];
             reactionTimes = [];
             consecutiveCorrect = 0;
+            
+            // Enable audio context (required for browsers)
+            if (celebrationAudio) {
+                celebrationAudio.load(); // Prepare the audio
+            }
             
             startBtn.style.display = 'none';
             gameOverDiv.style.display = 'none';

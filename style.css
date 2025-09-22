@@ -327,25 +327,65 @@
 
         .good-job-popup {
             position: fixed;
-            top: 50%;
+            top: 20px;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
+            transform: translateX(-50%) translateY(-100%);
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             color: white;
-            padding: 20px 40px;
+            padding: 25px 50px;
             border-radius: 20px;
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             z-index: 1000;
-            animation: popupAnimation 1.5s ease-out;
+            animation: topPopupAnimation 3s ease-out;
             pointer-events: none;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes popupAnimation {
-            0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.2) rotate(0deg); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(0) rotate(180deg); opacity: 0; }
+        @keyframes topPopupAnimation {
+            0% { 
+                transform: translateX(-50%) translateY(-100%); 
+                opacity: 0; 
+            }
+            10% { 
+                transform: translateX(-50%) translateY(0); 
+                opacity: 1; 
+            }
+            90% { 
+                transform: translateX(-50%) translateY(0); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateX(-50%) translateY(-100%); 
+                opacity: 0; 
+            }
+        }
+
+        /* Confetti Animation for Game Container */
+        .game-container.confetti-active {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 999;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(600px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .data-summary {
