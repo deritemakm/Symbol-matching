@@ -263,7 +263,7 @@
             downloadCurrentBtn.style.backgroundColor = '#4CAF50';
             downloadCurrentBtn.style.margin = '5px';
             downloadCurrentBtn.setAttribute('data-download', 'current');
-            downloadCurrentBtn.textContent = '📊 Download Current Session';
+            downloadCurrentBtn.textContent = ' Download Current Session';
             downloadCurrentBtn.onclick = function() {
                 downloadCSV(currentCSV, `current_session_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.csv`);
             };
@@ -275,7 +275,7 @@
                 downloadAllBtn.style.backgroundColor = '#2196F3';
                 downloadAllBtn.style.margin = '5px';
                 downloadAllBtn.setAttribute('data-download', 'all');
-                downloadAllBtn.textContent = '📈 Download All Sessions';
+                downloadAllBtn.textContent = 'Download All Sessions';
                 downloadAllBtn.onclick = function() {
                     downloadCSV(allSessionsCSV, `all_sessions_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.csv`);
                 };
@@ -285,7 +285,7 @@
                 downloadSummaryBtn.style.backgroundColor = '#FF9800';
                 downloadSummaryBtn.style.margin = '5px';
                 downloadSummaryBtn.setAttribute('data-download', 'summary');
-                downloadSummaryBtn.textContent = '� Download Summary';
+                downloadSummaryBtn.textContent = 'Download Summary';
                 downloadSummaryBtn.onclick = function() {
                     downloadCSV(summaryCSV, `session_summary_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.csv`);
                 };
@@ -302,7 +302,7 @@
             clearHistoryBtn.style.backgroundColor = '#f44336';
             clearHistoryBtn.style.margin = '5px';
             clearHistoryBtn.setAttribute('data-download', 'clear');
-            clearHistoryBtn.textContent = '🗑️ Clear History';
+            clearHistoryBtn.textContent = 'Clear History';
             clearHistoryBtn.onclick = function() {
                 if (confirm('Are you sure you want to clear all game history? This cannot be undone.')) {
                     allGameSessions = [];
