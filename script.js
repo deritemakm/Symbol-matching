@@ -182,7 +182,7 @@
             
             const total = correctCount + incorrectCount;
             const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 100;
-            const wpm = Math.round((correctCount / (gameDuration/60)) * 60);
+            const wpm = Math.round(correctCount / (gameDuration / 60)); // Symbols per minute
             const avgReaction = reactionTimes.length > 0 ? 
                 Math.round(reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length) : 0;
             
